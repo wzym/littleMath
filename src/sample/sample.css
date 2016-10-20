@@ -1,0 +1,11 @@
+.field{
+    -fx-background-color: white;
+    -fx-border-color: black;
+    -fx-border-width: 1;
+}
+
+.canvas{
+    -fx-min-height: 80%;
+    -fx-min-width:80%;
+
+}
