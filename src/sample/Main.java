@@ -7,31 +7,27 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+    private Stage primaryStage;
+    private Controller controller;
     private Parent root;
-    private static Stage primaryStage;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        root.getStylesheets().add("sample/sample.css");
-        Main.primaryStage = primaryStage;
+        this.primaryStage = primaryStage;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
+        root = loader.load();
+//        root.getStylesheets().add("sample/sample.css");
+        controller = loader.getController();
+        controller.prepareToShow();
         formStage();
-
     }
 
     private void formStage() {
         primaryStage.setTitle("littleMath");
         primaryStage.setScene(new Scene(root));
+        controller.setScene(primaryStage);
         primaryStage.show();
 
-    }
-
-    static void makeFullScreen() {
-        primaryStage.setFullScreen(true);
-    }
-
-    static void closeFullScreen() {
-        primaryStage.setFullScreen(false);
     }
 
     public static void main(String[] args) {
