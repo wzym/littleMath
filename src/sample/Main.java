@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     private Stage primaryStage;
-    private Controller controller;
     private Parent root;
 
     @Override
@@ -16,16 +15,15 @@ public class Main extends Application {
         this.primaryStage = primaryStage;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
         root = loader.load();
-//        root.getStylesheets().add("sample/sample.css");
-        controller = loader.getController();
-        controller.prepareToShow();
+        Controller controller = loader.getController();
         formStage();
+        controller.setScene(primaryStage);
+//        root.getStylesheets().add("sample/sample.css");
     }
 
     private void formStage() {
         primaryStage.setTitle("littleMath");
         primaryStage.setScene(new Scene(root));
-        controller.setScene(primaryStage);
         primaryStage.show();
 
     }

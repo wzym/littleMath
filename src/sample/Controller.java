@@ -36,9 +36,27 @@ public class Controller {
     @FXML
     private Button testFunc;
 
-    void prepareToShow() {
+    void setScene(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+        prepareToShow();
+    }
+
+    private void prepareToShow() {
         this.drawer = fieldToDraw.getGraphicsContext2D();
-        coordinatesNetController = new CoordinatesNetController(fieldToDraw.getWidth(), fieldToDraw.getHeight());
+        coordinatesNetController = new CoordinatesNetController();
+        alignOnChangedResolution();
+        paneSim.heightProperty().addListener(observable -> {
+            alignOnChangedResolution();
+        });
+        paneSim.widthProperty().addListener(observable -> {
+            alignOnChangedResolution();
+        });
+    }
+
+    private void alignOnChangedResolution() {
+        coordinatesNetController.changeResolution(paneSim.getWidth(), paneSim.getHeight());
+        fieldToDraw.setHeight(paneSim.getHeight());
+        fieldToDraw.setWidth(paneSim.getWidth());
     }
 
     @FXML
@@ -62,7 +80,6 @@ public class Controller {
         if (!checkBoxFullScreen.isSelected()) {
             primaryStage.setFullScreen(false);
         }
-        alignCanvasToContainer();
     }
 
     @FXML
@@ -70,17 +87,7 @@ public class Controller {
         paneSim.getChildren().removeAll(coordinatesNetController.getCoordinatesNet());
     }
 
-    private void alignCanvasToContainer() {
-        fieldToDraw.setHeight(paneSim.getHeight());
-        fieldToDraw.setWidth(paneSim.getWidth());
-        coordinatesNetController.changeResolution(paneSim.getWidth(), paneSim.getHeight());
-    }
-
     private void drawPoint(Point2D point) {
         drawer.fillOval(point.getX(), point.getY(), 1, 1);
-    }
-
-    void setScene(Stage primaryStage) {
-        this.primaryStage = primaryStage;
     }
 }
