@@ -5,7 +5,6 @@
 }
 
 .canvas{
-    -fx-min-height: 80%;
-    -fx-min-width:80%;
-
+    -fx-fit-to-width: true;
+    -fx-fit-to-height: true;
 }
