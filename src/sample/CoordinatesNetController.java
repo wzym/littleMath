@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 class CoordinatesNetController {
+    private static final double NET_INDENT = 10.00;
+    private static final double ARROW_LENGTH = 10.00;
+    private static final double ARROW_WIDTH = 5.00;
     private Point2D originOfCoordinates;
     private List<Line> coordinatesNet = new ArrayList<>();
     private double[] resolutionXY = new double[2];
@@ -32,10 +35,28 @@ class CoordinatesNetController {
     }
 
     private void makeAbscissaAndOrdinate(double fieldWidth, double fieldHeight) {
-        Line abscissa = new Line(0, originOfCoordinates.getY(), fieldWidth, originOfCoordinates.getY());
-        Line ordinate = new Line(originOfCoordinates.getX(), fieldHeight, originOfCoordinates.getX(), 0);
+        double rightAbscissa = fieldWidth - NET_INDENT;
+        double bottomOrdinate = fieldHeight - NET_INDENT;
+        Line abscissa = new Line(NET_INDENT, originOfCoordinates.getY(), rightAbscissa, originOfCoordinates.getY());
+        Line ordinate = new Line(originOfCoordinates.getX(), bottomOrdinate, originOfCoordinates.getX(), NET_INDENT);
         coordinatesNet.add(abscissa);
         coordinatesNet.add(ordinate);
+        setRightArrow(abscissa.getEndX(), abscissa.getEndY());
+        setTopArrow(ordinate.getEndX(), ordinate.getEndY());
+    }
+
+    private void setTopArrow(double arrowHeadX, double arrowHeadY) {
+        Line left = new Line(arrowHeadX - ARROW_WIDTH, arrowHeadY + ARROW_LENGTH, arrowHeadX, arrowHeadY);
+        Line right = new Line(arrowHeadX + ARROW_WIDTH, arrowHeadY + ARROW_LENGTH, arrowHeadX, arrowHeadY);
+        coordinatesNet.add(left);
+        coordinatesNet.add(right);
+    }
+
+    private void setRightArrow(double arrowHeadX, double arrowHeadY) {
+        Line top = new Line(arrowHeadX - ARROW_LENGTH, arrowHeadY - ARROW_WIDTH, arrowHeadX, arrowHeadY);
+        Line bottom = new Line(arrowHeadX - ARROW_LENGTH, arrowHeadY + ARROW_WIDTH, arrowHeadX, arrowHeadY);
+        coordinatesNet.add(top);
+        coordinatesNet.add(bottom);
     }
 
     double getXOriginOfCoordinate() {
