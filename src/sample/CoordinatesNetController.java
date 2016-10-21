@@ -6,8 +6,6 @@ import javafx.scene.shape.Line;
 import java.util.ArrayList;
 import java.util.List;
 
-//А ещё мы здесь сетку повесим
-
 class CoordinatesNetController {
     private Point2D originOfCoordinates;
     private List<Line> coordinatesNet = new ArrayList<>();
