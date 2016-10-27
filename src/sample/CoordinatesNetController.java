@@ -10,6 +10,10 @@ class CoordinatesNetController {
     private static final double NET_INDENT = 10.00;
     private static final double ARROW_LENGTH = 10.00;
     private static final double ARROW_WIDTH = 5.00;
+    private double xPixelValue;
+    private double yPixelValue;
+    private double widthValue = 3;
+    private double heightValue = 3;
     private Point2D originOfCoordinates;
     private List<Line> coordinatesNet = new ArrayList<>();
     private double[] resolutionXY = new double[2];
@@ -32,6 +36,16 @@ class CoordinatesNetController {
     void changeResolution(double width, double height) {
         this.resolutionXY[0] = width;
         this.resolutionXY[1] = height;
+        xPixelValue = widthValue / width;
+        yPixelValue = heightValue / height;
+    }
+
+    void changeWidthValue(double newWidthValue) {
+        this.widthValue = newWidthValue;
+    }
+
+    void changeHeightValue(double newHeightValue) {
+        this.heightValue = newHeightValue;
     }
 
     private void makeAbscissaAndOrdinate(double fieldWidth, double fieldHeight) {
