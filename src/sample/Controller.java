@@ -89,17 +89,17 @@ public class Controller {
 
     @FXML
     private void changeWidthValue() {
-        double changeValue = (sliderXScale.getValue() >= 50) ? (50 / (100 - sliderXScale.getValue())) :
+        double coefficient = (sliderXScale.getValue() >= 50) ? (50 / (100 - sliderXScale.getValue())) :
                 (sliderXScale.getValue() / 50);
-        coordinatesNetController.changeWidthValue(changeValue);
+        coordinatesNetController.changeWidthValue(coefficient);
         sliderXScale.setValue(50);
     }
 
     @FXML
     private void changeHeightValue() {
-        double changeValue = (sliderYScale.getValue() >= 50) ? (50 / (100 - sliderYScale.getValue())) :
+        double coefficient = (sliderYScale.getValue() >= 50) ? (50 / (100 - sliderYScale.getValue())) :
                 (sliderYScale.getValue() / 50);
-        coordinatesNetController.changeHeightValue(changeValue);
+        coordinatesNetController.changeHeightValue(coefficient);
         sliderYScale.setValue(50);
     }
 

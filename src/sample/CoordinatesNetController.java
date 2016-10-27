@@ -10,8 +10,11 @@ class CoordinatesNetController {
     private static final double NET_INDENT = 10.00;
     private static final double ARROW_LENGTH = 10.00;
     private static final double ARROW_WIDTH = 5.00;
+    private int amountOfPixelsInOnePoint = 50;
     private double xPixelValue;
     private double yPixelValue;
+    private double xScaleLine;
+    private double yScaleLine;
     private double widthValue = 3;
     private double heightValue = 3;
     private Point2D originOfCoordinates;
@@ -38,14 +41,18 @@ class CoordinatesNetController {
         this.resolutionXY[1] = height;
         xPixelValue = widthValue / width;
         yPixelValue = heightValue / height;
+        setXScaleLine();
+        setYScaleLine();
     }
 
-    void changeWidthValue(double newWidthValue) {
-        this.widthValue = newWidthValue;
+    void changeWidthValue(double coefficient) {
+        this.widthValue *= coefficient;
+        setXScaleLine();
     }
 
-    void changeHeightValue(double newHeightValue) {
-        this.heightValue = newHeightValue;
+    void changeHeightValue(double coefficient) {
+        this.heightValue *= coefficient;
+        setYScaleLine();
     }
 
     private void makeAbscissaAndOrdinate(double fieldWidth, double fieldHeight) {
@@ -71,6 +78,21 @@ class CoordinatesNetController {
         Line bottom = new Line(arrowHeadX - ARROW_LENGTH, arrowHeadY + ARROW_WIDTH, arrowHeadX, arrowHeadY);
         coordinatesNet.add(top);
         coordinatesNet.add(bottom);
+    }
+
+    private void setXScaleLine() {
+        double approxLinePointValue = xPixelValue * amountOfPixelsInOnePoint;
+        xScaleLine = roundLinePointValue(approxLinePointValue);
+        System.out.println(approxLinePointValue);
+    }
+
+    private void setYScaleLine() {
+        double approxLinePointValue = yPixelValue * amountOfPixelsInOnePoint;
+        yScaleLine = roundLinePointValue(approxLinePointValue);
+    }
+
+    private double roundLinePointValue(double approxLinePointValue) {
+        return 0;
     }
 
     double getXOriginOfCoordinate() {
